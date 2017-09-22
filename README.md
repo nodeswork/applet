@@ -1,2 +1,2 @@
-# applet
+# @nodeswork/applet
 Nodeswork Applet
