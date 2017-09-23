@@ -7,7 +7,7 @@ const LOG = logger.getLogger();
 export class AppletInfoService {
 
   private appletInfo: AppletInfo = {
-    env:          'dev',
+    env:          process.env.NODE_ENV === 'production' ? 'production': 'dev',
     appletToken:  'unset',
   };
 

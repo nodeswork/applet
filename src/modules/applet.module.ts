@@ -3,7 +3,7 @@ import * as kiws              from '@nodeswork/kiws';
 import { Module }             from '../module';
 import { AppletInfoService }  from '../services';
 import {
-  ExternalAccessServiceStats,
+  AppletServiceStats,
   RegisterAppletInfoHandler,
 }                             from '../handlers';
 import {
@@ -25,7 +25,7 @@ import {
     TwitterAccount,
     {
       provide:   kiws.SERVICE_STATS_PROVIDER,
-      useClass:  ExternalAccessServiceStats,
+      useClass:  AppletServiceStats,
       multi:     true,
     }
   ],

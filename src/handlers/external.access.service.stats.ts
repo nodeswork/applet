@@ -1,8 +1,18 @@
-import * as request from 'request-promise';
+import * as request  from 'request-promise';
 
-import * as kiws    from '@nodeswork/kiws';
+import * as kiws     from '@nodeswork/kiws';
 
-export class ExternalAccessServiceStats implements kiws.ServiceStats {
+import {
+  AppletInfo,
+  AppletInfoService,
+}                    from '../services';
+
+@kiws.Injectable()
+export class AppletServiceStats implements kiws.ServiceStats {
+
+  constructor(
+    private appletInfo: AppletInfoService,
+  ) {}
 
   stats() {
     const externalAccess: any = {};
@@ -13,6 +23,8 @@ export class ExternalAccessServiceStats implements kiws.ServiceStats {
       externalAccess.direct = false;
     }
 
-    return { externalAccess };
+    const applet = this.appletInfo.getAppletInfo();
+
+    return { externalAccess, applet };
   }
 }
