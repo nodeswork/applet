@@ -38,10 +38,3 @@ function $constructors(): (Constructor|ConstructorOverride)[] {
   }
   return results;
 }
-
-// @kiws.Module({
-  // providers: [
-    // ContextInput,
-    // ContextLogger,
-  // ],
-// })

@@ -19,6 +19,8 @@ import {
   inputs: [
     AccountInputProvider,
   ],
+  workers: [
+  ],
   providers: [
     AppletInfoService,
     OAuthAccount,
