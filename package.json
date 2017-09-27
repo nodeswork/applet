@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/nodeswork/applet#readme",
   "dependencies": {
-    "@nodeswork/kiws": "0.0.8",
-    "@nodeswork/sbase": "^0.1.22"
+    "@nodeswork/kiws": "0.0.11",
+    "@nodeswork/sbase": "^0.1.24"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.43",

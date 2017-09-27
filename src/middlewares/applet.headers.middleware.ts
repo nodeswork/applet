@@ -23,8 +23,14 @@ export class AppletHeadersMiddleware {
 
   @kiws.AppMiddleware()
   private async setAppletHeader(ctx: Koa.Context, next: () => void) {
-    ctx.set(respConstants.NODESWORK_HEADER_PRODUCER, this.producer);
-    ctx.set(respConstants.NODESWORK_HEADER_PRODUCER_HOST, this.hostname);
-    await next();
+    const start = Date.now();
+    try {
+      ctx.set(respConstants.NODESWORK_PRODUCER, this.producer);
+      ctx.set(respConstants.NODESWORK_PRODUCER_HOST, this.hostname);
+      await next();
+    } finally {
+      const duration = Date.now() - start;
+      ctx.set(respConstants.NODESWORK_PRODUCER_DURATION, duration.toString());
+    }
   }
 }
