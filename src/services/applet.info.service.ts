@@ -5,16 +5,25 @@ import { constants } from '../constants';
 
 const LOG = logger.getLogger();
 
+const ENV              = process.env.NODE_ENV === 'production' ? 'production': 'dev';
+const APPLET_TOKEN     = process.env[constants.environmentKeys.APPLET_TOKEN] || null;
+const NA_TYPE          = process.env[constants.environmentKeys.NA_TYPE] || null;
+const NA_VERSION       = process.env[constants.environmentKeys.NA_VERSION] || null;
+const PACKAGE_NAME     = process.env[constants.environmentKeys.PACKAGE_NAME] || null;
+const PACKAGE_VERSION  = process.env[constants.environmentKeys.PACKAGE_VERSION] || null;
+const PRODUCER         = `na-npm-${PACKAGE_NAME}_${PACKAGE_VERSION}`
+
 @kiws.Service()
 export class AppletInfoService {
 
   private appletInfo: AppletInfo = {
-    env:             process.env.NODE_ENV === 'production' ? 'production': 'dev',
-    appletToken:     process.env[constants.environmentKeys.APPLET_TOKEN] || null,
-    naType:          process.env[constants.environmentKeys.NA_TYPE] || null,
-    naVersion:       process.env[constants.environmentKeys.NA_VERSION] || null,
-    packageName:     process.env[constants.environmentKeys.PACKAGE_NAME] || null,
-    packageVersion:  process.env[constants.environmentKeys.PACKAGE_VERSION] || null,
+    env:             ENV,
+    appletToken:     APPLET_TOKEN,
+    naType:          NA_TYPE,
+    naVersion:       NA_VERSION,
+    packageName:     PACKAGE_NAME,
+    packageVersion:  PACKAGE_VERSION,
+    producer:        PRODUCER,
   };
 
   constructor() { }
@@ -31,4 +40,5 @@ export interface AppletInfo {
   naVersion:       string;
   packageName:     string;
   packageVersion:  string;
+  producer:        string;
 }

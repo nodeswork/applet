@@ -18,14 +18,14 @@ export class AppletHeadersMiddleware {
     private appletInfo: AppletInfoService,
   ) {
     const info = this.appletInfo.getAppletInfo();
-    this.producer = `na-npm-${info.packageName}_${info.packageVersion}`;
+    this.producer = info.producer;
   }
 
   @kiws.AppMiddleware()
   private async setAppletHeader(ctx: Koa.Context, next: () => void) {
     const start = Date.now();
     try {
-      ctx.set(respConstants.NODESWORK_PRODUCER, this.producer);
+      ctx.set(respConstants.NODESWORK_PRODUCER,      this.producer);
       ctx.set(respConstants.NODESWORK_PRODUCER_HOST, this.hostname);
       await next();
     } finally {
