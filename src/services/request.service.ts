@@ -6,7 +6,9 @@ import {
   RequiredUriUrl,
 }                            from 'request';
 import * as request          from 'request-promise';
+import * as url              from 'url';
 
+import * as kiws             from '@nodeswork/kiws';
 import * as sbase            from '@nodeswork/sbase';
 
 import { AppletInfoService } from './applet.info.service';
@@ -17,6 +19,7 @@ const NAM          = 'nam';
 const GET_METHOD   = { method: 'GET' };
 const POST_METHOD  = { method: 'POST' };
 
+@kiws.Service()
 export class RequestService {
 
   private defaultRequest: RequestAPI<Request, CoreOptions, RequiredUriUrl>;
@@ -35,14 +38,24 @@ export class RequestService {
 
     headers[sbase.constants.headers.request.NODESWORK_FORWARDED_TO] = NAM;
 
-    this.defaultRequest = request.defaults({
+    const defaults: any = {
       headers,
-      proxy: PROXY_HOST,
-    });
+      json: true,
+    };
+
+    if (info.env === 'production') {
+      defaults.proxy = PROXY_HOST;
+    }
+
+    this.defaultRequest = request.defaults(defaults);
   }
 
   async request(options: RequestOptions): Promise<any> {
-    return this.defaultRequest(options);
+    const uri = new url.URL(options.uri, 'http://localhost:28310');
+    const requestOptions = _.extend(options, {
+      uri: uri.toString(),
+    });
+    return await this.defaultRequest(requestOptions);
   }
 
   async get(options: RequestOptions): Promise<any> {
