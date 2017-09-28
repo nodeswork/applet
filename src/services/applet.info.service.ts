@@ -6,6 +6,7 @@ import { constants } from '../constants';
 const LOG = logger.getLogger();
 
 const ENV              = process.env.NODE_ENV === 'production' ? 'production': 'dev';
+const APPLET_ID        = process.env[constants.environmentKeys.APPLET_ID] || null;
 const APPLET_TOKEN     = process.env[constants.environmentKeys.APPLET_TOKEN] || null;
 const NA_TYPE          = process.env[constants.environmentKeys.NA_TYPE] || null;
 const NA_VERSION       = process.env[constants.environmentKeys.NA_VERSION] || null;
@@ -18,6 +19,7 @@ export class AppletInfoService {
 
   private appletInfo: AppletInfo = {
     env:             ENV,
+    appletId:        APPLET_ID,
     appletToken:     APPLET_TOKEN,
     naType:          NA_TYPE,
     naVersion:       NA_VERSION,
@@ -35,6 +37,7 @@ export class AppletInfoService {
 
 export interface AppletInfo {
   env:             string;
+  appletId:        string;
   appletToken:     string;
   naType:          string;
   naVersion:       string;

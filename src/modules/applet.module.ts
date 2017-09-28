@@ -1,18 +1,21 @@
-import * as kiws              from '@nodeswork/kiws';
+import * as kiws           from '@nodeswork/kiws';
 
-import { Module }             from '../module';
-import { AppletInfoService }  from '../services';
+import { Module }          from '../module';
+import {
+  AppletInfoService,
+  RequestService,
+}                          from '../services';
 import {
   AppletServiceStats,
-}                             from '../handlers';
+}                          from '../handlers';
 import {
   AccountInputProvider,
   OAuthAccount,
   TwitterAccount,
-}                             from '../accounts';
+}                          from '../accounts';
 import {
   AppletHeadersMiddleware,
-}                             from '../middlewares';
+}                          from '../middlewares';
 
 @Module({
   handlers: [
@@ -25,6 +28,7 @@ import {
   providers: [
     AppletInfoService,
     OAuthAccount,
+    RequestService,
     TwitterAccount,
     {
       provide:   kiws.SERVICE_STATS_PROVIDER,

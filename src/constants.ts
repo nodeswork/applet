@@ -13,6 +13,19 @@ export namespace constants {
     export const PACKAGE_NAME     = 'NW_PACKAGE_NAME';
     export const PACKAGE_VERSION  = 'NW_PACKAGE_VERSION';
 
+    export const APPLET_ID        = 'NW_APPLET_ID';
     export const APPLET_TOKEN     = 'NW_APPLET_TOKEN';
+  }
+
+  export namespace headers.request {
+
+    export const APPLET_ID         = 'Nodeswork-Applet-Id';
+    export const APPLET_TOKEN      = 'Nodeswork-Applet-Token';
+    export const ACCOUNT_ID        = 'Nodeswork-Account-Id';
+    export const ACCOUNT_TOKEN     = 'Nodeswork-Account-Token';
+    export const NA_TYPE           = 'Nodeswork-Na-Type';
+    export const NA_VERSION        = 'Nodeswork-Na-Version';
+    export const PACKAGE_NAME      = 'Nodeswork-Package-Name';
+    export const PACKAGE_VERSION   = 'Nodeswork-Package-Version';
   }
 }
