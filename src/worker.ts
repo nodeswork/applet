@@ -18,13 +18,18 @@ export function WorkerProvider(
 }
 
 export interface WorkerOptions {
+  name?:     string; // display name for the worker
+  schedule?: string;
+  hide?:     boolean; // hide from UI
+  default?:  boolean; // default worker from UI
 }
 
 export function Worker(options: WorkerOptions) {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-    const endpointOptions = {
+    const endpointOptions: kiws.EndpointOptions = {
       method: 'POST',
       path:   `/workers/${target.constructor.name}/${propertyKey}`,
+      meta:   options,
     };
     const endpoint = kiws.Endpoint(endpointOptions);
     endpoint(target, propertyKey, descriptor);
