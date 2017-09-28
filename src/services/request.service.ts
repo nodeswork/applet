@@ -15,7 +15,7 @@ import * as sbase            from '@nodeswork/sbase';
 import { AppletInfoService } from './applet.info.service';
 import { constants }         from '../constants';
 
-const PROXY_HOST   = 'http://proxy-container:28320';
+const PROXY_HOST   = 'http://nodeswork-container-proxy:28320';
 const NAM          = 'nam';
 const GET_METHOD   = { method: 'GET' };
 const POST_METHOD  = { method: 'POST' };
