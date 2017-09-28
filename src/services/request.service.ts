@@ -8,6 +8,7 @@ import {
 import * as request          from 'request-promise';
 import * as url              from 'url';
 
+import * as logger           from '@nodeswork/logger';
 import * as kiws             from '@nodeswork/kiws';
 import * as sbase            from '@nodeswork/sbase';
 
@@ -18,6 +19,7 @@ const PROXY_HOST   = 'http://proxy-container';
 const NAM          = 'nam';
 const GET_METHOD   = { method: 'GET' };
 const POST_METHOD  = { method: 'POST' };
+const LOG          = logger.getLogger();
 
 @kiws.Service()
 export class RequestService {
@@ -48,6 +50,7 @@ export class RequestService {
     }
 
     this.defaultRequest = request.defaults(defaults);
+    LOG.info('Set default request', defaults);
   }
 
   async request(options: RequestOptions): Promise<any> {
@@ -55,7 +58,13 @@ export class RequestService {
     const requestOptions = _.extend(options, {
       uri: uri.toString(),
     });
-    return await this.defaultRequest(requestOptions);
+    LOG.info('Send request', requestOptions);
+    try {
+      return await this.defaultRequest(requestOptions);
+    } catch (e) {
+      LOG.error('Got error from request', e);
+      throw e;
+    }
   }
 
   async get(options: RequestOptions): Promise<any> {
