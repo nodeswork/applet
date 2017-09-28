@@ -14,7 +14,6 @@ const NA_TYPE          = process.env[constants.environmentKeys.NA_TYPE] || 'npm'
 const NA_VERSION       = process.env[constants.environmentKeys.NA_VERSION] || '8.3.0';
 let   PACKAGE_NAME     = process.env[constants.environmentKeys.PACKAGE_NAME] || null;
 let   PACKAGE_VERSION  = process.env[constants.environmentKeys.PACKAGE_VERSION] || null;
-const PRODUCER         = `na-npm-${PACKAGE_NAME}_${PACKAGE_VERSION}`
 
 if (PACKAGE_NAME == null || PACKAGE_VERSION == null) {
   try {
@@ -29,6 +28,8 @@ if (PACKAGE_NAME == null || PACKAGE_VERSION == null) {
     // Ignore
   }
 }
+
+const PRODUCER         = `na-npm-${PACKAGE_NAME}_${PACKAGE_VERSION}`
 
 @kiws.Service()
 export class AppletInfoService {
