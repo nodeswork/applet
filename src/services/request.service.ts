@@ -11,6 +11,7 @@ import * as url              from 'url';
 import * as logger           from '@nodeswork/logger';
 import * as kiws             from '@nodeswork/kiws';
 import * as sbase            from '@nodeswork/sbase';
+import { NodesworkError }    from '@nodeswork/utils';
 
 import { AppletInfoService } from './applet.info.service';
 import { constants }         from '../constants';
@@ -30,6 +31,21 @@ export class RequestService {
     private appletInfo: AppletInfoService,
   ) {
     const info = this.appletInfo.getAppletInfo();
+
+    if (info.appletId == null) {
+      LOG.error('Applet id is missing, try set NW_APPLET_ID from env');
+      throw new NodesworkError(
+        'Applet id is missing, try set NW_APPLET_ID from env',
+      );
+    }
+
+    if (info.appletToken == null) {
+      LOG.error('Applet token is missing, try set NW_APPLET_TOKEN from env');
+      throw new NodesworkError(
+        'Applet token is missing, try set NW_APPLET_TOKEN from env',
+      );
+    }
+
     const headers: any = {};
     headers[constants.headers.request.APPLET_ID]        = info.appletId;
     headers[constants.headers.request.APPLET_TOKEN]     = info.appletToken;
