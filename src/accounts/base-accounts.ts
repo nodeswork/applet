@@ -2,6 +2,7 @@ import * as _             from 'underscore';
 
 import * as kiws          from '@nodeswork/kiws';
 
+import { Account }        from '../account';
 import { RequestService } from '../services';
 import { constants }      from '../constants';
 
@@ -11,8 +12,7 @@ const ACCOUNT_OPERATE_OPTIONS_DEFAULTS: object = {
   args:     [],
 };
 
-@kiws.Injectable()
-export class Account {
+export class BaseAccount {
 
   _id:              string;
   accountType:      string;

@@ -1,20 +1,20 @@
-import * as _      from 'underscore';
-import * as Router from 'koa-router';
+import * as _          from 'underscore';
+import * as Router     from 'koa-router';
 
 import {
   InputProvider,
   InputGenerator,
   RawInput,
-}                  from '@nodeswork/kiws';
+}                      from '@nodeswork/kiws';
 
-import { Account } from './accounts';
+import { BaseAccount } from './base-accounts';
 
 @InputProvider({})
 export class AccountInputProvider {
 
   @InputGenerator()
   private getAccounts(ctx: Router.IRouterContext): RawInput[] {
-    const accounts: Account[] = ctx.request.body.accounts;
+    const accounts: BaseAccount[] = ctx.request.body.accounts;
     const inputs: RawInput[] = _
       .chain(accounts)
       .filter((account) => account.accountType === 'OAuthAccount')

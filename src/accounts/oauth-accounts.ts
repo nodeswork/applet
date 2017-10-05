@@ -1,4 +1,4 @@
-import { Account } from './accounts';
+import { BaseAccount } from './base-accounts';
 
-export class OAuthAccount extends Account {
+export class OAuthAccount extends BaseAccount {
 }

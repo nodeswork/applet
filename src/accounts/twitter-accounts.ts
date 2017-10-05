@@ -1,5 +1,10 @@
 import { OAuthAccount } from './oauth-accounts';
+import { Account }      from '../account';
 
+@Account({
+  accountType:  'OAuthAccount',
+  provider:     'twitter',
+})
 export class TwitterAccount extends OAuthAccount {
 
   public tweet(options: TweetOptions): Promise<Tweet> {

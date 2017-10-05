@@ -1,7 +1,8 @@
+import * as _        from 'underscore';
 import * as kiws     from '@nodeswork/kiws';
 
 import { bootstrap } from './bootstrap';
-
+import * as accounts from './accounts';
 import * as applet   from '.';
 
 @applet.WorkerProvider()
@@ -24,6 +25,9 @@ class MyWorker {
 @applet.Module({
   workers: [
     MyWorker,
+  ],
+  providers: [
+    accounts.TwitterAccount,
   ],
 })
 class MyModule {
