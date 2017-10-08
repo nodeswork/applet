@@ -5,7 +5,7 @@ import { BaseAccount } from './base-accounts';
   accountType: 'FifaFut18Account',
   provider:    'fifa-fut-18',
 })
-class FifaFut18Account extends BaseAccount {
+export class FifaFut18Account extends BaseAccount {
 
   public async getCredits(): Promise<any> {
 
