@@ -24,7 +24,7 @@ export class BaseAccount {
   accountCategory:  AccountCategory;
 
   constructor(
-    private $request: RequestService,
+    protected $request: RequestService,
   ) {}
 
   public async $operate(options: AccountOperateOptions): Promise<any> {
