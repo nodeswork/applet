@@ -27,7 +27,7 @@ class MyWorker {
     MyWorker,
   ],
   providers: [
-    // accounts.TwitterAccount,
+    accounts.TwitterAccount,
   ],
 })
 class MyModule {
