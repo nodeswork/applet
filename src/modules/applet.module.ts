@@ -10,8 +10,6 @@ import {
 }                          from '../handlers';
 import {
   AccountInputProvider,
-  OAuthAccount,
-  TwitterAccount,
 }                          from '../accounts';
 import {
   AppletHeadersMiddleware,
@@ -27,9 +25,7 @@ import {
   ],
   providers: [
     AppletInfoService,
-    OAuthAccount,
     RequestService,
-    TwitterAccount,
     {
       provide:   kiws.SERVICE_STATS_PROVIDER,
       useClass:  AppletServiceStats,
