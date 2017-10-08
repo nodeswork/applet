@@ -12,6 +12,7 @@ const ACCOUNT_OPERATE_OPTIONS_DEFAULTS: object = {
   args:     [],
 };
 
+@kiws.Injectable({})
 export class BaseAccount {
 
   _id:              string;
