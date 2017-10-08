@@ -9,6 +9,19 @@ import {
 
 import { BaseAccount } from './base-accounts';
 
+const ACCOUNT_TYPES = [
+  {
+    accountType: 'OAuthAccount',
+    provider:    'twitter',
+    type:        'TwitterAccount',
+  },
+  {
+    accountType: 'FifaFut18Account',
+    provider:    'fifa-fut-18',
+    type:        'FifaFut18Account',
+  },
+];
+
 @InputProvider({})
 export class AccountInputProvider {
 
@@ -17,22 +30,17 @@ export class AccountInputProvider {
     const accounts: BaseAccount[] = ctx.request.body.accounts;
     const inputs: RawInput[] = _
       .chain(accounts)
-      .filter((account) => account.accountType === 'OAuthAccount')
-      .filter((account) => account.provider === 'twitter')
       .map((account) => {
-        switch (account.provider) {
-          case 'twitter':
-            return {
-              type: 'TwitterAccount',
-              data: account,
-            };
-          default:
-            return {
-              type: 'OAuthAccount',
-              data: account,
-            };
-        }
+        let type = _.find(ACCOUNT_TYPES, (accountType) => {
+          return account.accountType === accountType.accountType &&
+            account.provider === accountType.provider;
+        });
+        return {
+          type: type && type.type,
+          data: account,
+        };
       })
+      .filter((input) => input.type != null)
       .value();
     return inputs;
   }
