@@ -42,7 +42,7 @@ export class FifaFut18Account extends BaseAccount {
   }
 
   public async bid(
-    tradeId: string, price: number,
+    tradeId: number, price: number,
   ): Promise<fifa.fut18.BidResponse> {
     const url = `ut/game/fifa18/trade/${tradeId}/bid`;
     return await this.$operate({
@@ -55,7 +55,7 @@ export class FifaFut18Account extends BaseAccount {
   }
 
   public async tradeStatus(
-    tradeIds: string[],
+    tradeIds: number[],
   ): Promise<fifa.fut18.TradeStatusResponse> {
     return await this.$operate({
       ref:     'ut/game/fifa18/trade/status',
@@ -73,7 +73,7 @@ export class FifaFut18Account extends BaseAccount {
     });
   }
 
-  public async sendToMyClub(itemIds: string[]): Promise<fifa.fut18.SendItemResponse> {
+  public async sendToMyClub(itemIds: number[]): Promise<fifa.fut18.SendItemResponse> {
     const itemData = _.map(itemIds, (itemId) => {
       return {
         id:    itemId,
