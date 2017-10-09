@@ -42,6 +42,7 @@ export class BaseAccount {
         ref:    options.ref,
         method: options.method,
         body:   options.body,
+        query:  options.query,
       },
     });
   }
