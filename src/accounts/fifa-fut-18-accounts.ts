@@ -98,7 +98,7 @@ export class FifaFut18Account extends BaseAccount {
     });
   }
 
-  public async sendResourceToTransferList(resourceIds: string[])
+  public async sendResourceToTransferList(resourceIds: number[])
     : Promise<fifa.fut18.SendItemResponse> {
       const itemData = _.map(resourceIds, (resourceId) => {
         return {
