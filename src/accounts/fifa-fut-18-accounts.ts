@@ -14,10 +14,17 @@ export class FifaFut18Account extends BaseAccount {
     super($request);
   }
 
-  public async getCredits(): Promise<any> {
+  public async getUserMassInfo(): Promise<any> {
 
     return await this.$operate({
-      ref:     'user/credits',
+      ref:     'ut/game/fifa18/usermassinfo',
+      method:  'GET',
+    });
+  }
+
+  public async getTradePile(): Promise<any> {
+    return await this.$operate({
+      ref:     'ut/game/fifa18/tradepile',
       method:  'GET',
     });
   }
