@@ -58,5 +58,6 @@ export interface AccountOperateOptions {
   ref:       string;
   method?:   string;
   headers?:  any;
+  query?:    { [name: string]: string };
   body?:     any;
 }
