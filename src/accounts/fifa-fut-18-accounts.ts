@@ -1,3 +1,5 @@
+import * as _             from 'underscore';
+
 import { Account }        from '../account';
 import { BaseAccount }    from './base-accounts';
 import { RequestService } from '../services';
@@ -28,14 +30,33 @@ export class FifaFut18Account extends BaseAccount {
     });
   }
 
-  public async searchMarket(): Promise<fifa.fut18.SearchResult> {
+  public async searchMarket(
+    options: fifa.fut18.SearchMarketOptions,
+  ): Promise<fifa.fut18.SearchResult> {
+    const query = _.mapObject(options, (val) => val.toString());
     return await this.$operate({
       ref:     'ut/game/fifa18/transfermarket',
       method:  'GET',
+      query,
     });
   }
 
-  public async tradeStatus(tradeIds: string[]): Promise<fifa.fut18.TradeStatusResponse> {
+  public async bid(
+    tradeId: string, price: number,
+  ): Promise<fifa.fut18.BidResponse> {
+    const url = `ut/game/fifa18/trade/${tradeId}/bid`;
+    return await this.$operate({
+      ref:     url,
+      method:  'PUT',
+      body:    {
+        bid:   price,
+      },
+    });
+  }
+
+  public async tradeStatus(
+    tradeIds: string[],
+  ): Promise<fifa.fut18.TradeStatusResponse> {
     return await this.$operate({
       ref:     'ut/game/fifa18/trade/status',
       method:  'GET',
@@ -44,9 +65,136 @@ export class FifaFut18Account extends BaseAccount {
       },
     });
   }
+
+  public async getWatchList(): Promise<fifa.fut18.WatchListResponse> {
+    return await this.$operate({
+      ref:   'ut/game/fifa18/watchlist',
+      method: 'GET',
+    });
+  }
+
+  public async sendToMyClub(itemIds: string[]): Promise<fifa.fut18.SendItemResponse> {
+    const itemData = _.map(itemIds, (itemId) => {
+      return {
+        id:    itemId,
+        pile:  'club',
+        // May need tradeId
+      };
+    });
+    return await this.$operate({
+      ref:   'ut/game/fifa18/item',
+      method: 'PUT',
+      body:  {
+        itemData,
+      },
+    });
+  }
+
+  public async getClubDevelopmentConsumables()
+    : Promise<fifa.fut18.ClubDevelopmentConsumablesResponse> {
+    return await this.$operate({
+      ref:    'ut/game/fifa18/club/consumables/development',
+      method: 'GET',
+    });
+  }
+
+  public async sendResourceToTransferList(resourceIds: string[])
+    : Promise<fifa.fut18.SendItemResponse> {
+      const itemData = _.map(resourceIds, (resourceId) => {
+        return {
+          id:    resourceId,
+          pile:  'trade',
+        };
+      });
+      return await this.$operate({
+        ref:   'ut/game/fifa18/item/resource',
+        method: 'PUT',
+        body:  {
+          itemData,
+        },
+      });
+  }
+
+  public async list(options: fifa.fut18.ListOptions): Promise<fifa.fut18.ListResponse> {
+    const body = {
+      buyNowPrice:  options.buyNowPrice,
+      duration:     options.duration,
+      startingBid:  options.startingBid,
+      itemData:     {
+        id:         options.itemId,
+      },
+    };
+    return await this.$operate({
+      ref:     'ut/game/fifa18/auctionhouse',
+      method:  'POST',
+      body,
+    });
+  }
 }
 
 export namespace fifa.fut18 {
+
+  export interface ListResponse {
+    id:     number;
+    idStr:  string;
+  }
+
+  export interface ListOptions {
+    buyNowPrice: number;  // 5000
+    duration:    number;  // 3600
+    itemId:      number;
+    startingBid: number;  // 150
+  }
+
+  export interface ClubDevelopmentConsumablesResponse {
+    itemData: CountableItemData[];
+  }
+
+  export interface CountableItemData {
+    count:             number;
+    discardValue:      number;
+    item:              ItemData;
+    resourceGameYear:  number;
+    resourceId:        number;
+    untradeableCount:  number;
+  }
+
+  export interface SendItemResponse {
+    itemData: ItemMoveResult[];
+  }
+
+  export interface ItemMoveResult {
+    id:       number;
+    pile:     string;
+    success:  boolean;
+  }
+
+  export interface BaseResponse {
+    credits:      number;
+  }
+
+  export interface WatchListResponse extends BaseResponse {
+    total:        number;
+    auctionInfo:  AuctionInfo[];
+  }
+
+  export interface BidResponse extends BaseResponse {
+    bidTokens:    any;
+    currencies:   Currency[];
+    auctionInfo:  AuctionInfo[];
+  }
+
+  export interface SearchMarketOptions {
+    start?: number;  // 0
+    num?:   number;  // 16
+    type?:  string;  // development
+    cat?:   string;  // contract
+    lev?:   string;  // gold
+    micr?:  number;
+    macr?:  number;
+    minb?:  number;
+    maxb?:  number;  // 300
+  }
 
   export interface TradeStatusResponse {
     auctionInfo:  AuctionInfo[];
@@ -79,6 +227,7 @@ export namespace fifa.fut18 {
   }
 
   export interface ItemData {
+    amount?:            number;
     assetId:            number;
     assists:            number;
     attributeList:      any[];
@@ -116,8 +265,14 @@ export namespace fifa.fut18 {
   }
 
   export interface TradePile {
-    credits:    number;
-    bidTokens:  any;
+    credits:               number;
+    bidTokens:             any;
+    duplicateItemIdList?:  DuplicateItemId[];
+  }
+
+  export interface DuplicateItemId {
+    duplicateItemId:  number;
+    itemId:           number;
   }
 
   export interface UserMassInfo {
