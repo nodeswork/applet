@@ -130,9 +130,21 @@ export class FifaFut18Account extends BaseAccount {
       body,
     });
   }
+
+  public async getItems(): Promise<fifa.fut18.ItemResponse> {
+    return await this.$operate({
+      ref:    'ut/game/fifa18/purchased/items',
+      method: 'GET',
+    });
+  }
 }
 
 export namespace fifa.fut18 {
+
+  export interface ItemResponse {
+    duplicateItemIdList?:  DuplicateItemId[];
+    itemData:              ItemData[];
+  }
 
   export interface ListResponse {
     id:     number;
