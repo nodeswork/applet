@@ -137,6 +137,13 @@ export class FifaFut18Account extends BaseAccount {
       method: 'GET',
     });
   }
+
+  public async deleteSold(): Promise<void> {
+    await this.$operate({
+      ref:    'ut/game/fifa18/trade/sold',
+      method: 'DELETE',
+    });
+  }
 }
 
 export namespace fifa.fut18 {
