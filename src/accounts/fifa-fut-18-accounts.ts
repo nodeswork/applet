@@ -286,6 +286,7 @@ export namespace fifa.fut18 {
   export interface TradePile {
     credits:               number;
     bidTokens:             any;
+    auctionInfo?:          AuctionInfo[];
     duplicateItemIdList?:  DuplicateItemId[];
   }
 
