@@ -144,9 +144,20 @@ export class FifaFut18Account extends BaseAccount {
       method: 'DELETE',
     });
   }
+
+  public async relist(): Promise<fifa.fut18.RelistResponse> {
+    return await this.$operate({
+      ref:    'ut/game/fifa18/auctionhouse/relist',
+      method: 'PUT',
+    });
+  }
 }
 
 export namespace fifa.fut18 {
+
+  export interface RelistResponse {
+    tradeIdList: ListResponse[];
+  }
 
   export interface ItemResponse {
     duplicateItemIdList?:  DuplicateItemId[];
