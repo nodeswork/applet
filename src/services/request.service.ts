@@ -66,7 +66,7 @@ export class RequestService {
     }
 
     this.defaultRequest = request.defaults(defaults);
-    LOG.info('Set default request', defaults);
+    LOG.debug('Set default request', defaults);
   }
 
   async request(options: RequestOptions): Promise<any> {
@@ -74,7 +74,7 @@ export class RequestService {
     const requestOptions = _.extend(options, {
       uri: uri.toString(),
     });
-    LOG.info('Send request', requestOptions);
+    LOG.debug('Send request', requestOptions);
     try {
       return await this.defaultRequest(requestOptions);
     } catch (e) {
