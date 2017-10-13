@@ -14,6 +14,10 @@ import {
 import {
   AppletHeadersMiddleware,
 }                          from '../middlewares';
+import {
+  ContextLogger,
+  ExecutionMetrics,
+}                          from '../providers';
 
 @Module({
   handlers: [
@@ -36,6 +40,8 @@ import {
       useClass:  AppletHeadersMiddleware,
       multi:     true,
     },
+    ContextLogger,
+    ExecutionMetrics,
   ],
 })
 export class AppletModule {

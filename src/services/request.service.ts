@@ -94,7 +94,7 @@ export class RequestService {
 
 export interface RequestOptions {
   uri:       string;
-  method:    string;
+  method?:   string;
   headers?:  any;
   body?:     any;
 }

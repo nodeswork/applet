@@ -1,32 +1,33 @@
-// import * as _                               from 'underscore';
+import * as _      from 'underscore';
 
-// import * as logger                          from '@nodeswork/logger';
+import * as kiws   from '@nodeswork/kiws';
+import * as logger from '@nodeswork/logger';
 
-// import { ContextInput }                     from '../inputs';
-// import { Input, Injectable, PostConstruct } from '../injection';
+const LOG = logger.getLogger();
 
-// const LOG = logger.getLogger();
+@kiws.Injectable({ inputs: true })
+export class ContextLogger {
 
-// @Injectable({ inputs: true })
-// export class ContextLogger {
+  @kiws.Inject() context: kiws.ContextInput;
 
-  // @Input() context: ContextInput;
-  // meta: any = {};
+  meta: any = {};
 
-  // constructor() { }
+  constructor() { }
 
-  // @PostConstruct()
-  // init() {
-    // this.withMeta({
-      // _requestId: this.context.requsetId,
-    // });
-  // }
+  @kiws.PostConstruct()
+  init() {
+    this.withMeta({ _requestId: this.context.requsetId });
+  }
 
-  // withMeta(meta: any) {
-    // _.extend(this.meta, meta);
-  // }
+  withMeta(meta: any) {
+    _.extend(this.meta, meta);
+  }
 
-  // info(message: string, meta?: any) {
-    // LOG.info(message, _.extend({}, this.meta, meta));
-  // }
-// }
+  info(message: string, meta?: any) {
+    LOG.info(message, _.extend({}, this.meta, meta));
+  }
+
+  warn(message: string, meta?: any) {
+    LOG.warn(message, _.extend({}, this.meta, meta));
+  }
+}
