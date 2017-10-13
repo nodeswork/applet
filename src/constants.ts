@@ -23,6 +23,7 @@ export namespace constants {
     export const APPLET_TOKEN      = 'Nodeswork-Applet-Token';
     export const ACCOUNT_ID        = 'Nodeswork-Account-Id';
     export const ACCOUNT_TOKEN     = 'Nodeswork-Account-Token';
+    export const EXECUTION_ID      = 'Nodeswork-Execution-Id';
     export const NA_TYPE           = 'Nodeswork-Na-Type';
     export const NA_VERSION        = 'Nodeswork-Na-Version';
     export const PACKAGE_NAME      = 'Nodeswork-Package-Name';
