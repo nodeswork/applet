@@ -23,11 +23,23 @@ export class ContextLogger {
     _.extend(this.meta, meta);
   }
 
+  debug(message: string, meta?: any) {
+    LOG.debug(message, _.extend({}, this.meta, meta));
+  }
+
+  verbose(message: string, meta?: any) {
+    LOG.verbose(message, _.extend({}, this.meta, meta));
+  }
+
   info(message: string, meta?: any) {
     LOG.info(message, _.extend({}, this.meta, meta));
   }
 
   warn(message: string, meta?: any) {
     LOG.warn(message, _.extend({}, this.meta, meta));
+  }
+
+  error(message: string, meta?: any) {
+    LOG.error(message, _.extend({}, this.meta, meta));
   }
 }
