@@ -5,5 +5,6 @@ export * from './constants';
 export * from './handlers';
 export * from './module';
 export * from './modules';
+export * from './providers';
 export * from './services';
 export * from './worker';
