@@ -8,12 +8,12 @@ export namespace ui.metrics {
 
   export interface MetricsPanelRangeSelection {
     granularity: string;
-    timeRange:   TimeRange;
+    timerange:   Timerange;
   }
 
-  export interface TimeRange {
-    start:  Date;
-    end:    Date;
+  export interface Timerange {
+    start:  number;
+    end:    number;
   }
 
   export interface MetricsPanelGroup {
