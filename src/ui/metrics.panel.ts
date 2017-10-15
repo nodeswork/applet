@@ -41,6 +41,14 @@ export namespace ui.metrics {
   }
 
   export interface MetricsPanelGraphConfig {
-    title: string;
+    title:   string;
+    chart:   {
+      type:  string;
+    };
+    metrics: MetricsPanlGraphMetricsConfig[];
+  }
+
+  export interface MetricsPanlGraphMetricsConfig {
+    name:  string;
   }
 }
