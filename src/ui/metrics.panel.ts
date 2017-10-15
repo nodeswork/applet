@@ -7,7 +7,7 @@ export namespace ui.metrics {
   }
 
   export interface MetricsPanelRangeSelection {
-    granularity: string;
+    granularity: number;
     timerange:   Timerange;
   }
 
