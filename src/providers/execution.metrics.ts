@@ -1,5 +1,6 @@
 import * as sbase         from '@nodeswork/sbase';
 import * as kiws          from '@nodeswork/kiws';
+import * as utils         from '@nodeswork/utils';
 
 import { RequestService } from '../services';
 import { constants }      from '../constants';
@@ -15,9 +16,11 @@ export class ExecutionMetrics {
     private request: RequestService,
   ) {}
 
-  async updateMetrics(options: sbase.metrics.MetricsOptions) {
+  async updateMetrics(options: utils.metrics.UpdateMetricsDataOptions<any>) {
 
-    const executionId = this.context.ctx.get(constants.headers.request.EXECUTION_ID);
+    const executionId = this.context.ctx.get(
+      constants.headers.request.EXECUTION_ID,
+    );
 
     if (executionId == null) {
       this.logger.warn('Execusion id is missing');
