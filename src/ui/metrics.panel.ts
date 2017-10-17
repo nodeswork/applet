@@ -41,6 +41,7 @@ export namespace ui.metrics {
 
   export interface MetricsPanelGraphConfig {
     title:   string;
+    width?:  number;
     chart:   {
       type:  string;
     };
