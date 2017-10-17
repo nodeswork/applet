@@ -27,7 +27,6 @@ export namespace ui.metrics {
     name:     string;
     filters:  MetricsPanelDimensionFilter[];
     enabled:  boolean;
-    split:    boolean;
   }
 
   export interface MetricsPanelDimensionFilter {
