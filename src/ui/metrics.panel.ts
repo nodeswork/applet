@@ -40,15 +40,16 @@ export namespace ui.metrics {
   }
 
   export interface MetricsPanelGraphConfig {
-    title:     string;
-    width?:    number;  // 1, 2, 4
-    minY?:     number;
-    maxY?:     number;
-    default?:  number;
-    chart:     {
-      type:    string;
+    title:        string;
+    width?:       number;  // 1, 2, 4
+    minY?:        number;
+    maxY?:        number;
+    default?:     number;
+    percentage?:  boolean;
+    chart:        {
+      type:       string;
     };
-    metrics:   MetricsPanlGraphMetricsConfig[];
+    metrics:      MetricsPanlGraphMetricsConfig[];
   }
 
   export interface MetricsPanlGraphMetricsConfig {
