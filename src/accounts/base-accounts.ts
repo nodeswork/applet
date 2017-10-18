@@ -48,6 +48,22 @@ export class BaseAccount {
   }
 }
 
+export function PostOperate() {
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    const $operate  = target.$operate;
+    target.$operate = async (options: AccountOperateOptions) => {
+      try {
+        const result = await $operate.call(this, options);
+        await this[propertyKey](options, null, result);
+        return result;
+      } catch (e) {
+        await this[propertyKey](options, e);
+        throw e;
+      }
+    };
+  };
+}
+
 export interface AccountCategory {
   accountType: string;
   provider:    string;
