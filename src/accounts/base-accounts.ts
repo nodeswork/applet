@@ -1,6 +1,7 @@
 import * as _             from 'underscore';
 
 import * as kiws          from '@nodeswork/kiws';
+import { NodesworkError } from '@nodeswork/utils';
 
 import { Account }        from '../account';
 import { RequestService } from '../services';
@@ -58,7 +59,9 @@ export class BaseAccount {
       return result;
     } catch (e) {
       if (e.statusCode === 424) {
-        console.error(e);
+        e = new NodesworkError(e.error.remoteError.message, {
+          responseCode: e.error.remoteError.statusCode,
+        });
       }
       if (this.$tracker != null) {
         await this.$tracker.track(options, e);
