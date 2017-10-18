@@ -18,6 +18,7 @@ export class FifaFut18Account extends BaseAccount {
 
   public async getUserMassInfo(): Promise<fifa.fut18.UserMassInfo> {
     return await this.$operate({
+      name:    'getUserMassInfo',
       ref:     'ut/game/fifa18/usermassinfo',
       method:  'GET',
     });
@@ -25,6 +26,7 @@ export class FifaFut18Account extends BaseAccount {
 
   public async getTradePile(): Promise<fifa.fut18.TradePile> {
     return await this.$operate({
+      name:    'getTradePile',
       ref:     'ut/game/fifa18/tradepile',
       method:  'GET',
     });
@@ -35,6 +37,7 @@ export class FifaFut18Account extends BaseAccount {
   ): Promise<fifa.fut18.SearchResult> {
     const query = _.mapObject(options, (val) => val.toString());
     return await this.$operate({
+      name:    'searchMarket',
       ref:     'ut/game/fifa18/transfermarket',
       method:  'GET',
       query,
@@ -46,6 +49,7 @@ export class FifaFut18Account extends BaseAccount {
   ): Promise<fifa.fut18.BidResponse> {
     const url = `ut/game/fifa18/trade/${tradeId}/bid`;
     return await this.$operate({
+      name:    'bid',
       ref:     url,
       method:  'PUT',
       body:    {
@@ -58,6 +62,7 @@ export class FifaFut18Account extends BaseAccount {
     tradeIds: number[],
   ): Promise<fifa.fut18.TradeStatusResponse> {
     return await this.$operate({
+      name:    'tradeStatus',
       ref:     'ut/game/fifa18/trade/status',
       method:  'GET',
       query:   {
@@ -68,6 +73,7 @@ export class FifaFut18Account extends BaseAccount {
 
   public async getWatchList(): Promise<fifa.fut18.WatchListResponse> {
     return await this.$operate({
+      name:  'getWatchList',
       ref:   'ut/game/fifa18/watchlist',
       method: 'GET',
     });
@@ -82,6 +88,7 @@ export class FifaFut18Account extends BaseAccount {
       };
     });
     return await this.$operate({
+      name:  'sendToMyClub',
       ref:   'ut/game/fifa18/item',
       method: 'PUT',
       body:  {
@@ -93,6 +100,7 @@ export class FifaFut18Account extends BaseAccount {
   public async getClubDevelopmentConsumables()
     : Promise<fifa.fut18.ClubDevelopmentConsumablesResponse> {
     return await this.$operate({
+      name:   'getClubDevelopmentConsumables',
       ref:    'ut/game/fifa18/club/consumables/development',
       method: 'GET',
     });
@@ -107,6 +115,7 @@ export class FifaFut18Account extends BaseAccount {
         };
       });
       return await this.$operate({
+        name:  'sendResourceToTransferList',
         ref:   'ut/game/fifa18/item/resource',
         method: 'PUT',
         body:  {
@@ -125,6 +134,7 @@ export class FifaFut18Account extends BaseAccount {
       },
     };
     return await this.$operate({
+      name:    'list',
       ref:     'ut/game/fifa18/auctionhouse',
       method:  'POST',
       body,
@@ -133,6 +143,7 @@ export class FifaFut18Account extends BaseAccount {
 
   public async getItems(): Promise<fifa.fut18.ItemResponse> {
     return await this.$operate({
+      name:   'getItems',
       ref:    'ut/game/fifa18/purchased/items',
       method: 'GET',
     });
@@ -140,6 +151,7 @@ export class FifaFut18Account extends BaseAccount {
 
   public async deleteSold(): Promise<void> {
     await this.$operate({
+      name:   'deleteSold',
       ref:    'ut/game/fifa18/trade/sold',
       method: 'DELETE',
     });
@@ -147,6 +159,7 @@ export class FifaFut18Account extends BaseAccount {
 
   public async relist(): Promise<fifa.fut18.RelistResponse> {
     return await this.$operate({
+      name:   'relist',
       ref:    'ut/game/fifa18/auctionhouse/relist',
       method: 'PUT',
     });

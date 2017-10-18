@@ -83,6 +83,7 @@ export interface AccountCategory {
 }
 
 export interface AccountOperateOptions {
+  name:      string;
   ref:       string;
   method?:   string;
   headers?:  any;

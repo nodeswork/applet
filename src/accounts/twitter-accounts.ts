@@ -16,6 +16,7 @@ export class TwitterAccount extends OAuthAccount {
 
   public tweet(options: TweetOptions): Promise<Tweet> {
     return this.$operate({
+      name:    'tweet',
       ref:     'statuses/update.json',
       method:  'POST',
       body:    options,
