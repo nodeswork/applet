@@ -52,6 +52,8 @@ export namespace ui.metrics {
   }
 
   export interface MetricsPanlGraphMetricsConfig {
-    name:  string;
+    name:        string;
+    retrieve?:   string;
+    transform?:  string;
   }
 }
