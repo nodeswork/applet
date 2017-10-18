@@ -24,9 +24,10 @@ export namespace ui.metrics {
   }
 
   export interface MetricsPanelDimensionConfig {
-    name:     string;
-    filters:  MetricsPanelDimensionFilter[];
-    enabled:  boolean;
+    name:          string;
+    displayName?:  string;
+    filters:       MetricsPanelDimensionFilter[];
+    enabled:       boolean;
   }
 
   export interface MetricsPanelDimensionFilter {
@@ -53,8 +54,9 @@ export namespace ui.metrics {
   }
 
   export interface MetricsPanlGraphMetricsConfig {
-    name:        string;
-    retrieve?:   string;
-    transform?:  string;
+    name:          string;
+    displayName?:  string;
+    retrieve?:     string;
+    transform?:    string;
   }
 }
