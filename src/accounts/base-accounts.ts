@@ -23,9 +23,15 @@ export class BaseAccount {
   verified:         boolean;
   accountCategory:  AccountCategory;
 
+  $tracker:         OperateTracker;
+
   constructor(
     protected $request: RequestService,
   ) {}
+
+  public setTracker(tracker: OperateTracker) {
+    this.$tracker = tracker;
+  }
 
   public async $operate(options: AccountOperateOptions): Promise<any> {
     _.defaults(options, ACCOUNT_OPERATE_OPTIONS_DEFAULTS);
@@ -34,34 +40,36 @@ export class BaseAccount {
 
     headers[constants.headers.request.ACCOUNT_ID]     = this._id;
     headers[constants.headers.request.ACCOUNT_TOKEN]  = this.accountToken;
-    return await this.$request.request({
-      uri:     `/accounts/${this._id}/operate`,
-      method:  'POST',
-      headers,
-      body:    {
-        ref:    options.ref,
-        method: options.method,
-        body:   options.body,
-        query:  options.query,
-      },
-    });
+    try {
+      const result = await this.$request.request({
+        uri:     `/accounts/${this._id}/operate`,
+        method:  'POST',
+        headers,
+        body:    {
+          ref:    options.ref,
+          method: options.method,
+          body:   options.body,
+          query:  options.query,
+        },
+      });
+      if (this.$tracker != null) {
+        await this.$tracker.track(options, null, result);
+      }
+      return result;
+    } catch (e) {
+      if (e.statusCode === 424) {
+        console.error(e);
+      }
+      if (this.$tracker != null) {
+        await this.$tracker.track(options, e);
+      }
+      throw e;
+    }
   }
 }
 
-export function PostOperate() {
-  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-    const $operate  = target.$operate;
-    target.$operate = async (options: AccountOperateOptions) => {
-      try {
-        const result = await $operate.call(this, options);
-        await this[propertyKey](options, null, result);
-        return result;
-      } catch (e) {
-        await this[propertyKey](options, e);
-        throw e;
-      }
-    };
-  };
+export interface OperateTracker {
+  track(options: AccountOperateOptions, err: any, result?: any): Promise<void>;
 }
 
 export interface AccountCategory {
