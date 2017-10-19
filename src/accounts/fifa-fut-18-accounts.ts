@@ -79,6 +79,14 @@ export class FifaFut18Account extends BaseAccount {
     });
   }
 
+  public async deleteWatchlist(tradeIds: number[]): Promise<void> {
+    return await this.$operate({
+      name:  'deleteWatchlist',
+      ref:   `ut/game/fifa18/watchlist?tradeId=${tradeIds.join(',')}`,
+      method: 'DELETE',
+    });
+  }
+
   public async sendToMyClub(itemIds: number[]): Promise<fifa.fut18.SendItemResponse> {
     const itemData = _.map(itemIds, (itemId) => {
       return {
