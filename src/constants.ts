@@ -28,5 +28,6 @@ export namespace constants {
     export const NA_VERSION        = 'Nodeswork-Na-Version';
     export const PACKAGE_NAME      = 'Nodeswork-Package-Name';
     export const PACKAGE_VERSION   = 'Nodeswork-Package-Version';
+    export const USER_APPLET_ID    = 'Nodeswork-User-Applet-Id';
   }
 }
