@@ -49,6 +49,7 @@ export namespace ui.metrics {
     percentage?:  boolean;
     chart:        {
       type:       string;
+      stack?:     boolean;
     };
     metrics:      MetricsPanlGraphMetricsConfig[];
   }
