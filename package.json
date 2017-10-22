@@ -27,9 +27,9 @@
   },
   "homepage": "https://github.com/nodeswork/applet#readme",
   "dependencies": {
-    "@nodeswork/kiws": "0.0.23",
-    "@nodeswork/sbase": "^0.2.5",
-    "@nodeswork/utils": "^0.1.10",
+    "@nodeswork/kiws": "0.0.24",
+    "@nodeswork/sbase": "^0.2.6",
+    "@nodeswork/utils": "^0.1.12",
     "@types/fs-extra": "^4.0.2",
     "fs-extra": "^4.0.2"
   },
