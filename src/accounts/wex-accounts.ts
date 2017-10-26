@@ -1,5 +1,7 @@
 import * as _             from 'underscore';
 
+import * as request       from 'request-promise';
+
 import { BaseAccount }    from './base-accounts';
 import { Account }        from '../account';
 import { RequestService } from '../services';
@@ -160,9 +162,41 @@ export class WEXAccount extends BaseAccount {
       body:    { coupon },
     });
   }
+
+  public static async getPublicInfo(): Promise<wex.PublicInfo> {
+    return await request.get(
+      wex.PUBLIC_API_PREFIX + '/info',
+    );
+  }
+
+  public static async getPublicTicker(
+    pairs: string[],
+  ): Promise<{ [pair: string]: wex.Ticker }> {
+    return await request.get(
+      wex.PUBLIC_API_PREFIX + `/ticker/${pairs.join('-')}`,
+    );
+  }
+
+  public static async getDepth(
+    pairs: string[],
+  ): Promise<{ [pair: string]: wex.Depth }> {
+    return await request.get(
+      wex.PUBLIC_API_PREFIX + `/depth/${pairs.join('-')}`,
+    );
+  }
+
+  public static async getTrades(
+    pairs: string[],
+  ): Promise<{ [pair: string]: wex.Trade[] }> {
+    return await request.get(
+      wex.PUBLIC_API_PREFIX + `/trades/${pairs.join('-')}`,
+    );
+  }
 }
 
 export namespace wex {
+
+  export const PUBLIC_API_PREFIX = 'https://wex.nz/api/3';
 
   export const COINS = {
     BTC: 'BTC',
@@ -235,6 +269,11 @@ export namespace wex {
     WAITING_FOR_ACCEPTANCE:  1,
     SUCCESSFUL:              2,
     NOT_CONFIRMED:           3,
+  };
+
+  export const TRADE_TYPES = {
+    SELL: 'ask',
+    BUY:  'bid',
   };
 
   export interface Response<T> {
@@ -314,6 +353,47 @@ export namespace wex {
     couponCurrency:  string;
     transId:         number;
     funds:           Funds;
+  }
+
+  export interface PublicInfo {
+    server_time:      number;
+    pairs:            {
+      [pair: string]: PublicPairInfo;
+    };
+  }
+
+  export interface PublicPairInfo {
+    decimal_places:  number;
+    min_price:       number;
+    max_price:       number;
+    min_amount:      number;
+    hidden:          number;
+    fee:             number;
+  }
+
+  export interface Ticker {
+    high:     number;
+    low:      number;
+    avg:      number;
+    vol:      number;
+    vol_cur:  number;
+    last:     number;
+    buy:      number;
+    sell:     number;
+    updated:  number;
+  }
+
+  export interface Depth {
+    asks: Array<[number, number]>;
+    bids: Array<[number, number]>;
+  }
+
+  export interface Trade {
+    type:       string;
+    price:      number;
+    amount:     number;
+    tid:        number;  // trade id
+    timestamp:  number;
   }
 
   export interface Funds {
