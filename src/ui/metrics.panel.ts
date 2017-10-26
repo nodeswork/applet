@@ -47,6 +47,7 @@ export namespace ui.metrics {
     maxY?:        number;
     default?:     number;
     percentage?:  boolean;
+    format?:      string;
     chart:        {
       type:       string;
       stack?:     boolean;
