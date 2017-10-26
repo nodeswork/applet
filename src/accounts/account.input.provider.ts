@@ -20,6 +20,11 @@ const ACCOUNT_TYPES = [
     provider:    'fifa-fut-18',
     type:        'FifaFut18Account',
   },
+  {
+    accountType: 'WEXAccount',
+    provider:    'wex',
+    type:        'WEXAccount',
+  },
 ];
 
 @InputProvider({})
