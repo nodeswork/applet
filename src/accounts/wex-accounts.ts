@@ -18,12 +18,12 @@ export class WEXAccount extends BaseAccount {
     super($request);
   }
 
-  public async getInfo(): Promise<wex.Response<wex.AccountInfo>> {
-    return await this.$operate({
+  public async getInfo(): Promise<wex.AccountInfo> {
+    return (await this.$operate({
       name:    'getInfo',
       ref:     'getInfo',
       method:  'GET',
-    });
+    })).return;
   }
 
   public async trade(options: {
@@ -31,46 +31,46 @@ export class WEXAccount extends BaseAccount {
     type:    string;
     rate:    number;
     amount:  number;
-  }): Promise<wex.Response<wex.TradeResult>> {
-    return await this.$operate({
+  }): Promise<wex.TradeResult> {
+    return (await this.$operate({
       name:    'trade',
       ref:     'Trade',
       method:  'POST',
       body:    _.pick(options, 'pair', 'type', 'rate', 'amount'),
-    });
+    })).return;
   }
 
   public async getActiveOrders(
     pair: string,
-  ): Promise<wex.Response<wex.ActiveOrders>> {
-    return await this.$operate({
+  ): Promise<wex.ActiveOrders> {
+    return (await this.$operate({
       name:    'getActiveOrders',
       ref:     'ActiveOrders',
       method:  'GET',
       body:    { pair },
-    });
+    })).return;
   }
 
   public async getOrderInfo(
     orderId: number,
-  ): Promise<wex.Response<wex.ActiveOrders>> {
-    return await this.$operate({
+  ): Promise<wex.ActiveOrders> {
+    return (await this.$operate({
       name:    'getOrderInfo',
       ref:     'OrderInfo',
       method:  'GET',
       body:    { order_id: orderId },
-    });
+    })).return;
   }
 
   public async cancelOrder(
     orderId: number,
-  ): Promise<wex.Response<wex.CancelOrderResult>> {
-    return await this.$operate({
+  ): Promise<wex.CancelOrderResult> {
+    return (await this.$operate({
       name:    'cancelOrder',
       ref:     'CancelOrder',
       method:  'POST',
       body:    { order_id:     orderId },
-    });
+    })).return;
   }
 
   public async getTradeHistory(options: {
@@ -82,8 +82,8 @@ export class WEXAccount extends BaseAccount {
     since?:   number;
     end?:     number;
     pair?:    string;
-  }): Promise<wex.Response<{ [orderId: string]: wex.TradeHistory }>> {
-    return await this.$operate({
+  }): Promise<{ [orderId: string]: wex.TradeHistory }> {
+    return (await this.$operate({
       name:    'getTradeHistory',
       ref:     'TradeHistory',
       method:  'GET',
@@ -91,7 +91,7 @@ export class WEXAccount extends BaseAccount {
         options, 'from', 'count', 'from_id', 'end_id', 'order', 'since', 'end',
         'pair',
       ),
-    });
+    })).return;
   }
 
   public async getTransactionHistory(options: {
@@ -102,65 +102,63 @@ export class WEXAccount extends BaseAccount {
     order?:   string;
     since?:   number;
     end?:     number;
-  }): Promise<wex.Response<{
-    [transactionId: string]: wex.TransactionHistory;
-  }>> {
-    return await this.$operate({
+  }): Promise<{ [transactionId: string]: wex.TransactionHistory; }> {
+    return (await this.$operate({
       name:    'getTransactionHistory',
       ref:     'TransHistory',
       method:  'GET',
       body:    _.pick(
         options, 'from', 'count', 'from_id', 'end_id', 'order', 'since', 'end',
       ),
-    });
+    })).return;
   }
 
-  public async getCoinDepositAddress(coinName: string): Promise<wex.Response<{
+  public async getCoinDepositAddress(coinName: string): Promise<{
     address: string;
-  }>> {
-    return await this.$operate({
+  }> {
+    return (await this.$operate({
       name:    'getCoinDepositAddress',
       ref:     'CoinDepositAddress',
       method:  'GET',
       body:    { coinName },
-    });
+    })).return;
   }
 
   public async withdrawCoin(options: {
     coinName: string;
     amount:   number;
     address:  string;
-  }): Promise<wex.Response<wex.WithdrawResult>> {
-    return await this.$operate({
+  }): Promise<wex.WithdrawResult> {
+    return (await this.$operate({
       name:    'withdrawCoin',
       ref:     'WithdrawCoin',
       method:  'POST',
       body:    _.pick(options, 'coinName', 'amount', 'address'),
-    });
+    })).return;
   }
 
   public async createCoupon(options: {
     currency: string;
     amount:   number;
     receiver: string;
-  }): Promise<wex.Response<wex.CreateCouponResult>> {
-    return await this.$operate({
+  }): Promise<wex.CreateCouponResult> {
+    return (await this.$operate({
       name:    'createCoupon',
       ref:     'CreateCoupon',
       method:  'POST',
       body:    _.pick(options, 'currency', 'amount', 'receiver'),
-    });
+    })).return;
   }
 
   public async redeemCoupon(
     coupon: string,
-  ): Promise<wex.Response<wex.RedeemCouponResult>> {
-    return await this.$operate({
+  ): Promise<wex.RedeemCouponResult> {
+    return (await this.$operate({
       name:    'redeemCoupon',
       ref:     'RedeemCoupon',
       method:  'POST',
       body:    { coupon },
-    });
+    })).return;
   }
 
   public static async getPublicInfo(): Promise<wex.PublicInfo> {
@@ -275,11 +273,6 @@ export namespace wex {
     SELL: 'ask',
     BUY:  'bid',
   };
-
-  export interface Response<T> {
-    success: number;
-    return:  T;
-  }
 
   export interface AccountInfo {
     funds:        Funds;
