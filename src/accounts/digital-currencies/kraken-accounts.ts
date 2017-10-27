@@ -2,9 +2,9 @@ import * as _             from 'underscore';
 
 import * as request       from 'request-promise';
 
-import { BaseAccount }    from './base-accounts';
-import { Account }        from '../account';
-import { RequestService } from '../services';
+import { BaseAccount }    from '../base-accounts';
+import { Account }        from '../../account';
+import { RequestService } from '../../services';
 
 @Account({
   accountType:  'KrakenAccount',
