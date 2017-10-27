@@ -41,7 +41,6 @@ implements DigitalCurrencyAccount {
       [dc.currencies.LTC, dc.currencies.USD],
       [dc.currencies.ETH, dc.currencies.BTC],
       [dc.currencies.ETH, dc.currencies.USD],
-      [dc.currencies.ETH, dc.currencies.LTC],
     ];
   }
 
