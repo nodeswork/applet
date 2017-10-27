@@ -50,7 +50,6 @@ implements DigitalCurrencyAccount {
     const depths = await this.getDepth(localPairs);
     const result: dc.Depths = {};
 
-    console.log(typeof depths);
     _.each(depths, (depth, localPair) => {
       const globalPair        = toGlobalPair(localPair);
       const globalPairString  = dc.pairToString(globalPair);
