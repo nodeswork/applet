@@ -15,16 +15,6 @@ const ACCOUNT_TYPES = [
     provider:    'twitter',
     type:        'TwitterAccount',
   },
-  {
-    accountType: 'FifaFut18Account',
-    provider:    'fifa-fut-18',
-    type:        'FifaFut18Account',
-  },
-  {
-    accountType: 'WEXAccount',
-    provider:    'wex',
-    type:        'WEXAccount',
-  },
 ];
 
 @InputProvider({})
@@ -40,10 +30,9 @@ export class AccountInputProvider {
           return account.accountType === accountType.accountType &&
             account.provider === accountType.provider;
         });
-        return {
-          type: type && type.type,
-          data: account,
-        };
+        return type != null ?
+          { type: type && type.type, data: account } :
+          { type: account.accountType, data: account };
       })
       .filter((input) => input.type != null)
       .value();
