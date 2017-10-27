@@ -264,7 +264,7 @@ function toLocalPair(pair: dc.TRADE_PAIR): string {
 
 function toGlobalPair(pair: string): dc.TRADE_PAIR {
   const x: [string, string] = pair.split('_') as any;
-  return [toGlobalName(x[0]), toGlobalName(x[0])];
+  return [toGlobalName(x[0]), toGlobalName(x[1])];
 }
 
 function toLocalName(name: dc.CURRENCY_NAME): string {
