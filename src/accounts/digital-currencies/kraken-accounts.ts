@@ -88,7 +88,7 @@ implements DigitalCurrencyAccount {
       const resp = await defaultRequest.get(
         `https://api.kraken.com/0/public/Depth?pair=${pair}`,
       );
-      _.extend(result, resp);
+      _.extend(result, resp.result);
     }
     return result;
   }
@@ -101,8 +101,8 @@ export namespace kraken {
   }
 
   export interface Depth {
-    asks: Array<[number, number, number]>;
-    bids: Array<[number, number, number]>;
+    asks: Array<[string, string, number]>;
+    bids: Array<[string, string, number]>;
   }
 }
 
@@ -153,11 +153,11 @@ function toGlobalName(name: string): dc.CURRENCY_NAME {
 }
 
 function toGlobalDepthInfo(
-  [price, volume, ts]: [number, number, number],
+  [price, volume, ts]: [string, string, number],
 ): dc.DepthInfo {
   return {
-    price,
-    volume,
+    price:   Number.parseFloat(price),
+    volume:  Number.parseFloat(volume),
     ts,
   };
 }
