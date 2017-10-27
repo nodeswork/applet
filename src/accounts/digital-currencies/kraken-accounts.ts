@@ -82,9 +82,15 @@ implements DigitalCurrencyAccount {
   public static async getDepths(
     pairs: string[],
   ): Promise<{ [pair: string]: kraken.Depth }> {
-    return (await defaultRequest.get(
-      `https://api.kraken.com/0/public/Depth?pair=${pairs.join(',')}`,
-    )).result;
+    const result: any = {};
+
+    for (const pair of pairs) {
+      const resp = await defaultRequest.get(
+        `https://api.kraken.com/0/public/Depth?pair=${pair}`,
+      );
+      _.extend(result, resp);
+    }
+    return result;
   }
 }
 
