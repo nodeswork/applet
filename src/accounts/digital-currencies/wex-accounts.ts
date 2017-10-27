@@ -10,6 +10,8 @@ import {
   dc,
 }                             from './def';
 
+const defaultRequest = request.defaults({ json: true });
+
 @Account({
   accountType:  'WEXAccount',
   provider:     'wex',
@@ -48,6 +50,7 @@ implements DigitalCurrencyAccount {
     const depths = await this.getDepth(localPairs);
     const result: dc.Depths = {};
 
+    console.log(typeof depths);
     _.each(depths, (depth, localPair) => {
       const globalPair        = toGlobalPair(localPair);
       const globalPairString  = dc.pairToString(globalPair);
@@ -218,7 +221,7 @@ implements DigitalCurrencyAccount {
   }
 
   public static async getPublicInfo(): Promise<wex.PublicInfo> {
-    return await request.get(
+    return await defaultRequest.get(
       wex.PUBLIC_API_PREFIX + '/info',
     );
   }
@@ -226,7 +229,7 @@ implements DigitalCurrencyAccount {
   public static async getPublicTicker(
     pairs: string[],
   ): Promise<{ [pair: string]: wex.Ticker }> {
-    return await request.get(
+    return await defaultRequest.get(
       wex.PUBLIC_API_PREFIX + `/ticker/${pairs.join('-')}`,
     );
   }
@@ -235,7 +238,7 @@ implements DigitalCurrencyAccount {
     pairs: string[],
   ): Promise<{ [pair: string]: wex.Depth }> {
     pairs = _.filter(pairs, (x) => !!x);
-    return await request.get(
+    return await defaultRequest.get(
       wex.PUBLIC_API_PREFIX + `/depth/${pairs.join('-')}`,
     );
   }
@@ -243,7 +246,7 @@ implements DigitalCurrencyAccount {
   public static async getTrades(
     pairs: string[],
   ): Promise<{ [pair: string]: wex.Trade[] }> {
-    return await request.get(
+    return await defaultRequest.get(
       wex.PUBLIC_API_PREFIX + `/trades/${pairs.join('-')}`,
     );
   }
