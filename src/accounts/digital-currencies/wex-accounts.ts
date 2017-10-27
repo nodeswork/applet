@@ -67,7 +67,7 @@ implements DigitalCurrencyAccount {
     _.each(info.funds, (value, name) => {
       const dcName = toGlobalName(name);
       if (dcName != null) {
-        result[name] = value;
+        result[dcName] = value;
       }
     });
 
