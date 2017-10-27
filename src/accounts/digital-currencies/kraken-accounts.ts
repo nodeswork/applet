@@ -83,7 +83,7 @@ implements DigitalCurrencyAccount {
     pairs: string[],
   ): Promise<{ [pair: string]: kraken.Depth }> {
     return (await defaultRequest.get(
-      `https://api.kraken.com/0/public/Depth/pair=${pairs.join(',')}`,
+      `https://api.kraken.com/0/public/Depth?pair=${pairs.join(',')}`,
     )).result;
   }
 }
